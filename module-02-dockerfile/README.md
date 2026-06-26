@@ -70,7 +70,6 @@ docker build -t my-app:1.0 .
 ```
 
 ## Запуск
-## Запуск
 
 ```bash
 docker run -d -p 5000:5000 my-app:1.0

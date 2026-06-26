@@ -3,6 +3,7 @@ services:
     build: ./app
     ports:
       - "5000"
+    command: uvicorn app:app --host 0.0.0.0 --port 5000 --reload
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/devops_db
     volumes:
