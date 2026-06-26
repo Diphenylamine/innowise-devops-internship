@@ -20,7 +20,7 @@ environment:
 ```
 
 Compose автоматически подтягивает переменные из `.env` файла.
-Файл `.env` добавляется в `.gitignore` — секреты не попадают в репозиторий.
+Файл `.env` добавляется в `.gitignore` - секреты не попадают в репозиторий.
 
 ## docker-compose.yml
 
@@ -163,7 +163,7 @@ app-1    | INFO:     Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to qui
 
 ## Healthcheck и depends_on
 
-По умолчанию `depends_on` ждёт пока контейнер запустился.
+По умолчанию `depends_on` ждёт пока контейнер запустится.
 Но база данных может быть не готова принимать подключения даже после старта.
 
 `healthcheck` проверяет готовность сервиса командой `pg_isready`:
@@ -212,7 +212,7 @@ module-06-docker-compose-advanced-app-2  module-06-docker-compose-advanced-app  
 module-06-docker-compose-advanced-app-3  module-06-docker-compose-advanced-app  0.0.0.0:58071->5000/tcp
 ```
 
-Docker автоматически назначил разные порты на хосте — именно поэтому
+Docker автоматически назначил разные порты на хосте - поэтому
 в `docker-compose.yml` используется `"5000"` без фиксации порта хоста,
 иначе 3 контейнера не смогут слушать один и тот же порт.
 
