@@ -3,7 +3,7 @@
 ## Приложение
 Простое REST API на FastAPI с одним эндпоинтом GET /, 
 который возвращает JSON с приветственным сообщением.
-...
+
 ```python
 from fastapi import FastAPI
 
