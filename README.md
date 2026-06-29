@@ -10,4 +10,5 @@
 | [module-04-volumes-networking](./module-04-volumes-networking/) | Docker Volumes и Networking: хранение данных и связь между контейнерами |
 | [module-05-docker-compose](./module-05-docker-compose/) | Docker Compose: управление многоконтейнерными приложениями |
 | [module-06-docker-compose-advanced](./module-06-docker-compose-advanced/) | Docker Compose Advanced: переменные окружения, healthcheck, масштабирование |
+| [module-07-ci-cd](./module-07-ci-cd/) | CI/CD: GitHub Actions, автоматическое тестирование с pytest |
 
