@@ -11,4 +11,4 @@
 | [module-05-docker-compose](./module-05-docker-compose/) | Docker Compose: управление многоконтейнерными приложениями |
 | [module-06-docker-compose-advanced](./module-06-docker-compose-advanced/) | Docker Compose Advanced: переменные окружения, healthcheck, масштабирование |
 | [module-07-ci-cd](./module-07-ci-cd/) | CI/CD: GitHub Actions, автоматическое тестирование с pytest |
-
+| [module-08-cd-pipeline](./module-08-cd-pipeline/) | CD Pipeline: сборка и публикация Docker образов в Docker Hub |
