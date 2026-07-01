@@ -15,3 +15,4 @@
 | [module-09-ansible](./module-09-ansible/) | Ansible: управление конфигурациями, Ad-Hoc команды, идемпотентность |
 | [module-10-ansible-playbooks](./module-10-ansible-playbooks/) | Ansible Playbooks: переменные, шаблоны Jinja2, handlers, roles |
 | [module-11-kubernetes](./module-11-kubernetes/) | Kubernetes: minikube, Pod, объекты K8s, императивные команды |
+| [module-12-k8s-deployment](./module-12-k8s-deployment/) | Kubernetes Deployment: декларативность, self-healing, Service |
