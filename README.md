@@ -14,3 +14,4 @@
 | [module-08-cd-pipeline](./module-08-cd-pipeline/) | CD Pipeline: сборка и публикация Docker образов в Docker Hub |
 | [module-09-ansible](./module-09-ansible/) | Ansible: управление конфигурациями, Ad-Hoc команды, идемпотентность |
 | [module-10-ansible-playbooks](./module-10-ansible-playbooks/) | Ansible Playbooks: переменные, шаблоны Jinja2, handlers, roles |
+| [module-11-kubernetes](./module-11-kubernetes/) | Kubernetes: minikube, Pod, объекты K8s, императивные команды |
