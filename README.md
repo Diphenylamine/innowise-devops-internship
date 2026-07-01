@@ -17,3 +17,4 @@
 | [module-11-kubernetes](./module-11-kubernetes/) | Kubernetes: minikube, Pod, объекты K8s, императивные команды |
 | [module-12-k8s-deployment](./module-12-k8s-deployment/) | Kubernetes Deployment: декларативность, self-healing, Service |
 | [module-13-k8s-stateful](./module-13-k8s-stateful/) | Kubernetes Stateful: ConfigMap, Secret, PersistentVolumeClaim |
+| [module-14-k8s-ingress-helm](./module-14-k8s-ingress-helm/) | Kubernetes Ingress + Helm: L7-маршрутизация, host-based routing, пакетный менеджер |
