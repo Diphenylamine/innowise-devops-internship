@@ -159,6 +159,82 @@ kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 80:80 --a
 
 `kubectl port-forward` - это стандартный способ достучаться до сервисов в кластере с локальной машины, работающий независимо от драйвера и ОС. Именно так эта задача и решается на реальных проектах, где кластер обычно вообще в облаке с реальным внешним IP.
 
+### Апдейт
+
+В ходе более углубленого изучения вопроса было выявлено, что в шаге 4 ("Решение черещ kubectl port-forward"), был сделан правельный обход сетевой проблемы, но было неверное тестирование логику Ingress, что и привело к неправельным выводам.
+
+#### В чём была ошибка
+
+Когда после решения сетевой проблемы проверял Ingress, использовалась такая команда:
+
+```bash
+kubectl exec -it -n ingress-nginx deployment/ingress-nginx-controller -- \
+  curl http://my-app-service.default.svc.cluster.local/app
+```
+
+```
+{"detail":"Not Found"}
+```
+
+Эта команда **не тестирует Ingress**. Она заходит в pod Ingress Controller'а и оттуда бьёт curl'ом напрямую в `my-app-service` через обычный Kubernetes DNS (`*.svc.cluster.local`) - то есть **в обход всей логики nginx**, включая правила `path` и аннотацию `rewrite-target`. Запрос идёт прямиком: curl -> Service -> под -> FastAPI. У FastAPI есть только роут `/`, поэтому `/app` закономерно вернул `404 Not Found`.
+
+Увидев это, был сделан вывод, что проблема в приложении - и **поменял `path` в Ingress с `/app` на `/`**, чтобы получить хоть какой-то ответ:
+
+```yaml
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /        # было /app
+            ...
+```
+
+С таким `path` аннотация `nginx.ingress.kubernetes.io/rewrite-target: /` стала бессмысленной - обрезать `/app` до `/` было уже не с чего. Следующий тест через `kubectl port-forward` к сервису подтвердил, что `/` отвечает - но это ничего не говорило о работоспособности исходнго конфига с `/app` и rewrite.
+
+#### Как правильно тестировать Ingress с rewrite-target
+
+Правильный тест должен идти **через сам Ingress Controller**, а не в обход него - только тогда применяется nginx-конфиг с правилами маршрутизации и переписывания пути.
+
+```bash
+kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 8080:80 --address=0.0.0.0 &
+curl http://localhost:8080/app
+```
+
+```
+{"message":"Привет!."}
+```
+
+С исходным `path: /app` и `nginx.ingress.kubernetes.io/rewrite-target: /` всё работает как задумано: Ingress принимает запрос на `/app`, обрезает префикс до `/` и отправляет в `my-app-service` уже правильный путь, который приложение понимает.
+
+#### Финальная конфигурация app-ingress.yml
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /app
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-service
+                port:
+                  number: 80
+```
+
+Эта версия сейчас находится в файле `app-ingress.yml`
+
+#### Вывод
+
+Тестировать Ingress нужно через порт самого `ingress-nginx-controller` (или через IP/host, как задумано изначально) - а не напрямую через Service, даже если оба способа технически проходят через кластер. Прямой запрос к Service полностью пропускает L7-маршрутизацию, ради которой Ingress и существует, включая любые `rewrite-target`, `path`-правила и `host`-based routing.
+
+
 ## Проверка host-based routing
 
 ```bash
