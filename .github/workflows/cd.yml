@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+    - 'module-07-ci-cd/**'
+
 jobs:
   build-push:
     runs-on: ubuntu-latest
