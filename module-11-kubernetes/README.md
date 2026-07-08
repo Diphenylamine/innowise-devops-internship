@@ -1,4 +1,4 @@
-# Module 10 — Kubernetes Basics
+# Module 11 — Kubernetes Basics
 
 ## Что такое Kubernetes (кратко)
 
