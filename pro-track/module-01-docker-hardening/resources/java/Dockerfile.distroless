@@ -1,0 +1,17 @@
+FROM eclipse-temurin:17-jdk-alpine AS builder
+
+WORKDIR /app
+
+COPY Main.java .
+
+RUN javac Main.java && \
+    echo "Main-Class: Main" > manifest.txt && \
+    jar cfm app.jar manifest.txt Main.class
+
+FROM gcr.io/distroless/java17-debian12
+
+WORKDIR /app
+
+COPY --from=builder /app/app.jar .
+
+CMD ["app.jar"]
