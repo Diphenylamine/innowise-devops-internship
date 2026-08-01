@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-demo-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: traefik-demo
+  template:
+    metadata:
+      labels:
+        app: traefik-demo
+    spec:
+      containers:
+        - name: traefik-demo
+          image: traefik-demo-app:k8s
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
