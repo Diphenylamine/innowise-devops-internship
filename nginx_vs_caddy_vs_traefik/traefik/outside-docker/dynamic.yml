@@ -1,0 +1,13 @@
+http:
+  services:
+    backend:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:7001"
+          - url: "http://127.0.0.1:7002"
+          - url: "http://127.0.0.1:7003"
+
+  routers:
+    my-router:
+      rule: "PathPrefix(`/`)"
+      service: backend

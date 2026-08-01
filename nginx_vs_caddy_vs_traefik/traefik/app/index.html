@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Traefik</title>
+</head>
+
+<body>
+    <div class="page">
+
+        <div class="container">
+            <div class="cube" id="cube">
+                <div class="side left"></div>
+                <div class="side right"></div>
+                <div class="side top"></div>
+                <div class="side bottom"></div>
+                <div class="side back"></div>
+                <div class="side front"></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <button id="getNumberBtn" class="btn">Получить номер сервера</button>
+            <div id="result" class="result" aria-live="polite">Номер сервера пока не запрошен</div>
+        </div>
+
+    </div>
+
+    <script>
+        const btn = document.getElementById('getNumberBtn');
+        const resultEl = document.getElementById('result');
+
+        btn.addEventListener('click', async () => {
+            btn.disabled = true;
+            resultEl.textContent = 'Загрузка...';
+            resultEl.classList.remove('error', 'success');
+
+            try {
+                const response = await fetch('/api/server-number');
+                if (!response.ok) {
+                    throw new Error('Сервер ответил с ошибкой: ' + response.status);
+                }
+                const data = await response.json();
+                resultEl.classList.add('success');
+                resultEl.textContent = 'Номер сервера: ' + data.number;
+            } catch (err) {
+                resultEl.textContent = 'Не удалось получить номер сервера';
+                resultEl.classList.add('error');
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

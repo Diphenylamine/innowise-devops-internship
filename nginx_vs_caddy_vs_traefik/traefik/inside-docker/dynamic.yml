@@ -1,0 +1,13 @@
+http:
+  services:
+    backend:
+      loadBalancer:
+        servers:
+          - url: "http://app1:5000"
+          - url: "http://app2:5000"
+          - url: "http://app3:5000"
+
+  routers:
+    my-router:
+      rule: "PathPrefix(`/`)"
+      service: backend

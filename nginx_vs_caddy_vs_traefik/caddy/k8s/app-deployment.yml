@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy-demo-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: caddy-demo
+  template:
+    metadata:
+      labels:
+        app: caddy-demo
+    spec:
+      containers:
+        - name: caddy-demo
+          image: caddy-demo-app:k8s
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000

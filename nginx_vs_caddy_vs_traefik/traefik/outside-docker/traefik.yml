@@ -1,0 +1,7 @@
+entryPoints:
+  web:
+    address: ":8093"
+
+providers:
+  file:
+    filename: /mnt/d/internship/innowise-devops-internship/nginx_vs_caddy_vs_traefik/traefik/outside-docker/dynamic.yml
