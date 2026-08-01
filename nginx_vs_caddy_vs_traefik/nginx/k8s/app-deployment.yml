@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-demo-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lb-demo
+  template:
+    metadata:
+      labels:
+        app: lb-demo
+    spec:
+      containers:
+        - name: lb-demo
+          image: lb-demo-app:k8s
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000

@@ -1,0 +1,5 @@
+:80 {
+    reverse_proxy app1:5000 app2:5000 app3:5000 {
+        lb_policy round_robin
+    }
+}

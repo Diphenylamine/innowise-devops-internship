@@ -1,0 +1,26 @@
+services:
+  app1:
+    build: ../app
+    hostname: app1
+    expose:
+      - "5000"
+  app2:
+    build: ../app
+    hostname: app2
+    expose:
+      - "5000"
+  app3:
+    build: ../app
+    hostname: app3
+    expose:
+      - "5000"
+  caddy:
+    image: caddy:alpine
+    ports:
+      - "8083:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - app1
+      - app2
+      - app3

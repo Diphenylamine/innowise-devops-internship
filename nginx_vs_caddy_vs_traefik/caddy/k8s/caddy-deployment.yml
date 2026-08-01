@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy-proxy-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caddy-proxy
+  template:
+    metadata:
+      labels:
+        app: caddy-proxy
+    spec:
+      containers:
+        - name: caddy
+          image: caddy:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: caddy-config-volume
+              mountPath: /etc/caddy
+      volumes:
+        - name: caddy-config-volume
+          configMap:
+            name: caddy-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: caddy-proxy-service
+spec:
+  selector:
+    app: caddy-proxy
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP

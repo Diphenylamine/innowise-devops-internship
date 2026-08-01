@@ -20,3 +20,4 @@
 | [module-14-k8s-ingress-helm](./module-14-k8s-ingress-helm/README.md) | Kubernetes Ingress + Helm: L7-маршрутизация, host-based routing, пакетный менеджер |
 | [module-15-observability](./module-15-observability/README.md) | Observability: Prometheus, Grafana, ServiceMonitor, метрики приложения, логи |
 | [ProTrack](./pro-track/README.md) | Advansed DevOps modules|
+| [Nginx-VS-Caddy-VS-Traefik](./nginx_vs_caddy_vs_traefik/README.md) | Comparing Nginx, Caddy, and Traefik as Load Balancers|

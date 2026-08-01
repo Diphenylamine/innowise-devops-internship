@@ -1,0 +1,18 @@
+services:
+  app1:
+    build: ../app
+    hostname: app1
+    ports:
+      - "6001:5000"
+
+  app2:
+    build: ../app
+    hostname: app2
+    ports:
+      - "6002:5000"
+
+  app3:
+    build: ../app
+    hostname: app3
+    ports:
+      - "6003:5000"

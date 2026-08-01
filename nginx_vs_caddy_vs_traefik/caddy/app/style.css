@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    color: #ffffff;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100vh;
+}
+
+body {
+    background: radial-gradient(#fff, #9999);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    padding: 24px;
+    gap: clamp(24px, 5vh, 48px);
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(24px, 5vh, 48px);
+    width: 100%;
+}
+
+/* ---------- Куб ---------- */
+
+.container {
+    /* размер куба тянется вместе с экраном, но не выходит за разумные пределы */
+    --cube-size: clamp(140px, 40vmin, 300px);
+    width: var(--cube-size);
+    height: var(--cube-size);
+    position: relative;
+    perspective: 1000px;
+
+    z-index: -1;
+}
+
+.cube {
+    width: inherit;
+    height: inherit;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg);
+    animation: rotate 15s linear 2s infinite;
+}
+
+.side {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+
+    /* background: rgba(200, 200, 200, 0.1); */
+    background-image: none;
+    border: 2px solid #000;
+    backdrop-filter: blur(10px);
+}
+
+.front {
+    transform: translateZ(calc(var(--cube-size) / 2));
+
+
+}
+
+.back {
+    transform: rotateY(180deg) translateZ(calc(var(--cube-size) / 2));
+
+
+}
+
+.right {
+    transform: rotateY(90deg) translateZ(calc(var(--cube-size) / 2));
+
+
+}
+
+.left {
+    transform: rotateY(-90deg) translateZ(calc(var(--cube-size) / 2));
+
+}
+
+.top {
+    transform: rotateX(90deg) translateZ(calc(var(--cube-size) / 2));
+
+}
+
+.bottom {
+    transform: rotateX(-90deg) translateZ(calc(var(--cube-size) / 2));
+
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* ---------- Панель с кнопкой ---------- */
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 420px;
+}
+
+.btn {
+    padding: 14px 28px;
+    font-size: clamp(15px, 2.5vw, 18px);
+    font-weight: 600;
+    color: #fff;
+    background: rgba(53, 53, 53, 0.8);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    width: 100%;
+    max-width: 320px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    color:#11d503;
+    transition: 0.2s;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.result {
+    font-size: clamp(20px, 2.2vw, 20px);
+    text-align: center;
+    color: #000;
+    word-break: break-word;
+}
+
+.result.success{
+    color:#065500;
+}
+.result.error {
+    color: #6b0303;
+}
+
+/* ---------- Небольшая доп. адаптация под очень маленькие экраны ---------- */
+
+@media (max-width: 360px) {
+    .container {
+        --cube-size: clamp(120px, 55vmin, 260px);
+    }
+}
